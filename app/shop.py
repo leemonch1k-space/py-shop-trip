@@ -8,8 +8,8 @@ class Shop:
         self.location = location
         self.products = products
 
-    def format_price(self, price: float) -> str | int:
-        rounded_price = round(price, 2)
+    def format_price(self, price: float | int) -> str | int:
+        rounded_price = round(float(price), 2)
 
         if rounded_price.is_integer():
             return int(rounded_price)
