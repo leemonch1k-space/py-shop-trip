@@ -1,4 +1,4 @@
-from typing import Any, Tuple
+from typing import Any
 
 
 class Customer:
@@ -20,14 +20,11 @@ class Customer:
             self,
             shop: Any,
             mode: int = 1
-    ) -> Tuple[float, list] | float:
+    ) -> float:
         if not shop:
             return 0.0
 
-        road_args = self.car.calculate_road_price(self.location, shop.location)
-
-        road_price = road_args[0]
-        new_location = road_args[1]
+        road_price = self.car.calculate_road_cost(self.location, shop.location)
 
         products_price = shop.buy_products_cost(**self.product_cart)
         trip_price = road_price + products_price
@@ -35,7 +32,7 @@ class Customer:
         if mode == 0:
             return round(trip_price, 2)
 
-        return round(trip_price, 2), new_location
+        return round(trip_price, 2)
 
     def find_cheapest_trip(
             self,
@@ -45,14 +42,18 @@ class Customer:
         cheapest_trip = float("inf")
         cheapest_shop = None
         money_spend = float("inf")
-        new_location = []
 
         for shop in shops:
-            trip_price, new_location = self.calculate_trip_price(shop)
+            trip_price = self.calculate_trip_price(shop)
+
+            print(
+                f"{self.name}'s trip to the {shop.name} "
+                f"costs {trip_price}"
+            )
+
             if trip_price < cheapest_trip:
                 cheapest_trip = trip_price
                 shop_name = shop.name
                 cheapest_shop = shop
                 money_spend = trip_price
-        self.location = new_location
         return [shop_name, cheapest_shop, money_spend]

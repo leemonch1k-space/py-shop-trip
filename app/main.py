@@ -34,14 +34,8 @@ def shop_trip() -> None:
 
         print(f"{name} has {money} dollars")
 
-        for shop in shops:
-            trip_price = customer.calculate_trip_price(shop, 0)
-            print(
-                f"{customer.name}'s trip to the {shop.name} "
-                f"costs {trip_price}"
-            )
-
         trip_result = customer.find_cheapest_trip(shops)
+
         shop_name = trip_result[0]
         cheapest_shop = trip_result[1]
         money_spend = trip_result[2]
@@ -55,6 +49,8 @@ def shop_trip() -> None:
 
         print(f"{name} rides to {shop_name}")
 
+        customer.location = cheapest_shop.location
+
         print("")
 
         cheapest_shop.print_bill(customer)
@@ -63,11 +59,9 @@ def shop_trip() -> None:
 
         print(f"{name} rides home")
 
+        customer.location = customer.home_location
         customer.money = round(customer.money - money_spend, 2)
 
         print(f"{name} now has {customer.money} dollars")
 
         print("")
-
-
-shop_trip()

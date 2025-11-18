@@ -41,5 +41,3 @@ class Shop:
         print(f"Total cost is {total} dollars")
 
         print("See you again!")
-
-        customer.location = customer.home_location
