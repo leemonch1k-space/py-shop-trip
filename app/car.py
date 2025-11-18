@@ -1,4 +1,5 @@
 from math import sqrt
+from typing import Any
 
 
 class Car:
@@ -11,15 +12,16 @@ class Car:
 
     def calculate_road_price(
             self,
-            point_a: list[int],
-            point_b: list[int]
-    ) -> float:
+            base_location: list[int],
+            new_location: list[int]
+    ) -> list[Any]:
         distance = sqrt(
-            (point_b[0] - point_a[0]) ** 2 + (point_b[1] - point_a[1]) ** 2
+            (new_location[0] - base_location[0]) ** 2
+            + (new_location[1] - base_location[1]) ** 2
         )
 
         total_distance = distance * 2
         distance_per_fuel = total_distance / 100
         fuel_cost = distance_per_fuel * self.fuel_consumption * self.fuel_price
 
-        return fuel_cost
+        return [fuel_cost, new_location]

@@ -37,6 +37,9 @@ class Shop:
             total += cost
             cost = self.format_price(cost)
             print(f"{count} {product}s for {cost} dollars")
+        total = round(total, 2)
         print(f"Total cost is {total} dollars")
 
         print("See you again!")
+
+        customer.location = customer.home_location
