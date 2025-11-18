@@ -19,7 +19,6 @@ class Customer:
     def calculate_trip_price(
             self,
             shop: Any,
-            mode: int = 1
     ) -> float:
         if not shop:
             return 0.0
@@ -28,9 +27,6 @@ class Customer:
 
         products_price = shop.buy_products_cost(**self.product_cart)
         trip_price = road_price + products_price
-
-        if mode == 0:
-            return round(trip_price, 2)
 
         return round(trip_price, 2)
 
